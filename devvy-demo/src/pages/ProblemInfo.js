@@ -195,7 +195,7 @@ const highlightBacktickWords = (text, className = "code-highlight") => {
       {/* Right: File Explorer + Code Editor */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column'}}>
         <div style={{ display: 'flex', flex: 1 }}>
-          <FileExplorer files={explorerData.files} folders={explorerData.folders} onFileClick={handleFileClick} activeSection={activeSection}setActiveSection={setActiveSection}/>
+          <FileExplorer currentFile={currentFile} files={explorerData.files} folders={explorerData.folders} onFileClick={handleFileClick} activeSection={activeSection}setActiveSection={setActiveSection}/>
           <div style={{ flex: 1, marginRight: '0.6rem', marginTop: '0.6rem' }}>
             <div className="editor-container">
               <div className="editor-content">

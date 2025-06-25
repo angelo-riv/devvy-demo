@@ -18,7 +18,7 @@ const TreeNode = ({ name, children, level = 0 }) => {
   );
 };
 
-const FileExplorer = ({ files = [], folders = [], onFileClick, activeSection, setActiveSection }) => (
+const FileExplorer = ({ files = [], folders = [], currentFile, onFileClick, activeSection, setActiveSection }) => (
   <div className="file-explorer">
     <div className = "nav-content">
       <button className={`nav-tab${activeSection === 'code' ? ' active' : ''}`} onClick={() => setActiveSection('code')}>Code</button>
@@ -39,8 +39,9 @@ const FileExplorer = ({ files = [], folders = [], onFileClick, activeSection, se
         })
         .map((fileUrl) => {
           const fileName = fileUrl.split('/').pop().split('?')[0];
+          const isActive = fileName === currentFile;
           return (
-            <li key={fileUrl} className="file" onClick={() => onFileClick(fileUrl)}>
+            <li key={fileUrl} className={`file ${isActive ? 'active-file' : ''}`} onClick={() => onFileClick(fileUrl)}>
               📄 {fileName}
             </li>
           );

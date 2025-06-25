@@ -996,3 +996,13 @@ li.file {
   font-size: 14px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+.file.active-file {
+  background-color: #1e293b;
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 6px;
+}
+.file.active-file {
+  transition: background-color 0.2s ease;
+}
