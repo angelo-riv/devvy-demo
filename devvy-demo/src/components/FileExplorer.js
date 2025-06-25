@@ -22,7 +22,7 @@ const FileExplorer = ({ files = [], folders = [], onFileClick, activeSection, se
   <div className="file-explorer">
     <div className = "nav-content">
       <button className={`nav-tab${activeSection === 'code' ? ' active' : ''}`} onClick={() => setActiveSection('code')}>Code</button>
-      <button className={`nav-tab${activeSection === 'solutions' ? ' active' : ''}`} onClick={() => setActiveSection('solutions')}>Solutions</button>
+      <button className={`nav-tab${activeSection === 'solutions' ? ' active' : ''}`} onClick={() => setActiveSection('solutions')}>Discussion</button>
       <button className={`nav-tab${activeSection === 'submissions' ? ' active' : ''}`} onClick={() => setActiveSection('submissions')}>Submissions</button>
     </div>
     <h3 className="explorer-title">File Explorer</h3>
