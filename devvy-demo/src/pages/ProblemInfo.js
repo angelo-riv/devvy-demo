@@ -24,7 +24,7 @@ const CodeEditor = () => {
     });
     const data = await res.json();  
     setExplorerData(data);
-
+    console.log("data:",data)
     // Fetch and populate all file contents immediately
     const fileContents = {};
     for (const fileUrl of data.files) {
@@ -38,8 +38,7 @@ const CodeEditor = () => {
 
     // Optionally set the first file as the current file
     if (data.files.length > 0) {
-      const firstFileName = data.files[0].split('/').pop().split('?')[0];
-      setCurrentFile(firstFileName);
+      setCurrentFile("README.md");
     }
   }
 
@@ -88,7 +87,7 @@ const CodeEditor = () => {
     const getProblemData = async () => {
       try{
         const response = await axios.post(`http://127.0.0.1:8000/getProblemDescription/${question_id}`);
-        console.log(response);
+        console.log(response.data);
         setProblemData(response.data);
       } catch(error){
         console.error("Error fetching problem data:", error);
@@ -135,32 +134,45 @@ const handleSubmit = async () => {
 
 
   const result = await res.json();
-  console.log(result);
-  setResult(result);
-  console.log(result.hasError)
-  setActiveTab("result")
-  } catch (error) {
-    console.error("Submission Error")
-  }
+    console.log("result:",result);
+    setResult(result);
+    console.log(result.hasError)
+    setActiveTab("result")
+    } catch (error) {
+      console.error("Submission Error")
+    }
+  };
 
+const highlightBacktickWords = (text, className = "code-highlight") => {
+    const regex = /`([^`]+)`/g; // matches anything inside backticks
+    const parts = [];
+    let lastIndex = 0;
+    let match;
+
+    while ((match = regex.exec(text)) !== null) {
+      const [fullMatch, word] = match;
+      const start = match.index;
+
+      if (start > lastIndex) {
+        parts.push(text.slice(lastIndex, start));
+      }
+
+      parts.push(<span key={start} className={className}>{word}</span>);
+
+      lastIndex = start + fullMatch.length;
+    }
+
+    if (lastIndex < text.length) {
+      parts.push(text.slice(lastIndex));
+    }
+
+    return parts;
 };
 
   return (
   <div className="probleminfo-page">
-    <nav className="nav-container">
-      <div className="nav-content">
-        <div className="nav-brand">
-          <h1>{problemData.question}</h1>
-        </div>
-        <div className="nav-tabs">
-          <button className={`nav-tab${activeSection === 'code' ? ' active' : ''}`} onClick={() => setActiveSection('code')}>Code</button>
-          <button className={`nav-tab${activeSection === 'solutions' ? ' active' : ''}`} onClick={() => setActiveSection('solutions')}>Solutions</button>
-          <button className={`nav-tab${activeSection === 'submissions' ? ' active' : ''}`} onClick={() => setActiveSection('submissions')}>Submissions</button>
-        </div>
-      </div>
-    </nav>
 
-    <div className="probleminfo-body" style={{ display: 'flex', height: 'calc(100vh - 60px)' }}>
+    <div className="probleminfo-body" style={{ display: 'flex'}}>
       {/* Left: Problem Description */}
       <div className="probleminfo-container" style={{ width: '50%', overflowY: 'auto', padding: '1rem' }}>
         <div className="probleminfo-header">
@@ -175,19 +187,16 @@ const handleSubmit = async () => {
 
         <div className="probleminfo-content">
           <p className="probleminfo-description">
-            {problemData.description}
+            {highlightBacktickWords(problemData.description || '')} Read more in the <span className = "code-highlight">README.md</span> file.
           </p>
-
-          
-          
         </div>
       </div>
 
       {/* Right: File Explorer + Code Editor */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column'}}>
         <div style={{ display: 'flex', flex: 1 }}>
-          <FileExplorer files={explorerData.files} folders={explorerData.folders} onFileClick={handleFileClick}/>
-          <div style={{ flex: 1 }}>
+          <FileExplorer files={explorerData.files} folders={explorerData.folders} onFileClick={handleFileClick} activeSection={activeSection}setActiveSection={setActiveSection}/>
+          <div style={{ flex: 1, marginRight: '0.6rem', marginTop: '0.6rem' }}>
             <div className="editor-container">
               <div className="editor-content">
                 {activeSection === 'solutions' && <Solutions />}
@@ -231,7 +240,7 @@ const handleSubmit = async () => {
                     <div className="editor-footer">
                       <div className="editor-tabs">
                         <button className={`editor-tab ${activeTab === 'result' ? 'lactive' : ''}`} onClick={() => setActiveTab('result')}>
-                          📋 Test Result
+                          Test Result
                         </button>
                       </div>
 
@@ -253,7 +262,7 @@ const handleSubmit = async () => {
                               <span>{result.error}</span>
                             </div>
                             <div className="result-details">
-                              <p>Test Cases Passed: {result.passed_cases} of {result.total_cases} </p>
+                              {result.total_cases ? (<p>Test Cases Passed: {result.passed_cases} of {result.total_cases}</p>) : (<p>Test Cases Passed:</p>)}
                             </div>
                             </>
                             )}
@@ -263,7 +272,7 @@ const handleSubmit = async () => {
                               <span>{result.error ?? "All test cases Passed!"}</span>
                             </div>
                             <div className="result-details">
-                              <p>Test Cases Passed: {result.passed_cases} of {result.total_cases}</p>
+                              {result.total_cases ? (<p>Test Cases Passed: {result.passed_cases} of {result.total_cases}</p>) : (<p>Test Cases Passed:</p>)}
                               <p>Runtime: 45ms</p>
                               <p>Memory: 2.1MB</p>
                             </div>

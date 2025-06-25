@@ -5,6 +5,35 @@ body {
   color: #e2e8f0;
 }
 
+html,
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #30363d #161b22;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  background: #161b22;
+  border-radius: 4px;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  background-color: #30363d;
+  border-radius: 4px;
+  border: 2px solid #161b22;
+}
+
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #444c56;
+}
+
 /* --- NAVBAR --- */
 .navbar {
   display: flex;
@@ -12,7 +41,6 @@ body {
   align-items: center;
   padding: 12px 24px;
   background-color: #0f172a;
-  border-bottom: 1px solid #1e293b;
 }
 
 .navbar-left {
@@ -20,11 +48,29 @@ body {
   align-items: center;
 }
 
+@keyframes shake {
+  0% { transform: scale(1.2) rotate(0deg); }
+  25% { transform: scale(1.2) rotate(2deg); }
+  50% { transform: scale(1.2) rotate(-2deg); }
+  75% { transform: scale(1.2) rotate(2deg); }
+  100% { transform: scale(1.2) rotate(0deg); }
+}
+
 .nav-logo {
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
   object-fit: contain;
-  margin-right: 10px;
+  transition: transform 0.8s ease;
+}
+
+.nav-logo:hover {
+  transform: scale(1.2);
+  animation: shake 0.4s ease infinite;
+  animation-delay: 0s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  animation-direction: normal;
+  animation-fill-mode: both;
 }
 
 .nav-title {
@@ -74,7 +120,7 @@ body {
 .probleminfo-page {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 40vh;
 }
 
 .probleminfo-containers {
@@ -87,9 +133,9 @@ body {
 
 .probleminfo-container {
   flex: 1;
+  margin: 0.6rem;
   background-color: #161b22;
-  border: 1px solid #30363d;
-  border-radius: 8px;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   height: 80vh;
@@ -120,27 +166,6 @@ body {
 }
 
 /* Navigation styles */
-.nav-container {
-  background-color: #161b22;
-  padding: 12px 16px;
-  border-bottom: 1px solid #2d3748;
-}
-
-.nav-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.nav-brand h1 {
-  font-size: 20px;
-  color: #e4e6ea;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-
 .nav-tabs {
   display: flex;
   gap: 8px;
@@ -150,7 +175,7 @@ body {
   background: none;
   border: none;
   color: #8b949e;
-  padding: 8px 16px;
+  padding: 8px 10px;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s;
@@ -164,35 +189,19 @@ body {
   background-color: #21262d;
 }
 
-.nav-actions .submit-btn {
-  background-color: #238636;
-  color: #ffffff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  font-size: 14px;
-  font-weight: 500;
-}
 
-.nav-actions .submit-btn:hover {
-  background-color: #2ea043;
-}
 
 /* Editor container */
 .editor-container {
   flex: 2;
   background-color: #161b22;
-  border: 1px solid #30363d;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
-  margin: 0;
   display: flex;
   flex-direction: column;
-  height: 85vh;
+  height: 84.6vh;
 }
 
 .editor-content {
@@ -248,15 +257,20 @@ body {
   outline: none;
   resize: none;
   flex-grow: 1;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
   scrollbar-width: thin;              
   scrollbar-color: #30363d #161b22;
+}
+
+.topic-tag {
+  text-align: center;
+  align-items: center; 
+  justify-content: center;
 }
 
 .editor-footer {
   background-color: #21262d;
   border-top: 1px solid #30363d;
+  border-bottom-right-radius: 12px;
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -411,6 +425,26 @@ body {
   gap: 16px;
   max-height: 400px;
   overflow-y: auto;
+  scrollbar-width: thin;              
+  scrollbar-color: #30363d #161b22;
+}
+.solutions-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.solutions-list::-webkit-scrollbar-track {
+  background: #161b22;
+  border-radius: 4px;
+}
+
+.solutions-list::-webkit-scrollbar-thumb {
+  background-color: #30363d;
+  border-radius: 4px;
+  border: 2px solid #161b22; 
+}
+
+.solutions-list::-webkit-scrollbar-thumb:hover {
+  background-color: #444c56;
 }
 
 .solution-item {
@@ -495,6 +529,8 @@ body {
 
 .submissions-table {
   padding: 16px;
+    scrollbar-width: thin;              
+  scrollbar-color: #30363d #161b22;
 }
 
 .submission-header,
@@ -595,6 +631,10 @@ body {
   color: #e4e6ea;
 }
 
+.probleminfo-description {
+  line-height: 26px;
+}
+
 .probleminfo-title {
   margin-top: 0;
 }
@@ -653,19 +693,21 @@ body {
 }
 
 .file-explorer {
+  margin-top: 0.6rem;
   width: 250px;
-  background-color: #1e1e1e;
-  color: #ccc;
-  font-family: monospace;
-  height: 83vh;
+  background-color: #161b22;
+  height: 80vh;
   overflow-y: auto;
-  border-right: 1px solid #333;
   padding-top: 1rem;
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  padding: 0.5rem 0.75rem;
+  padding: 1rem;
+}
+
+.explorer-title {
+  margin-top:0.2rem;
 }
 
 li.file {
@@ -718,6 +760,8 @@ li.file {
 
 .problem-meta {
   display: flex;
+  text-align: center;
+  align-items: center; 
   gap: 1rem;
   font-size: 0.875rem;
   color: #94a3b8;
@@ -769,17 +813,6 @@ li.file {
   background-color: rgba(248, 113, 113, 0.1);
 }
 
-.problem-description {
-  color: #cbd5e1;
-  font-size: 0.95rem;
-  margin-bottom: 1rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .problem-footer {
   display: flex;
   justify-content: space-between;
@@ -828,4 +861,13 @@ li.file {
 
 .hover-blue:hover {
   color: #60a5fa;
+}
+
+.code-highlight {
+    background-color: #21262d;
+    color: #e4e6ea;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: SF Mono, Consolas, monospace;
 }

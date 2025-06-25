@@ -1,18 +1,5 @@
 import React, { useState } from 'react';
 
-const fileStructure = {
-  src: {
-    components: {
-      'Header.jsx': null,
-      'Sidebar.jsx': null,
-    },
-    'App.jsx': null,
-    'index.js': null,
-  },
-  'README.md': null,
-  'package.json': null,
-};
-
 const TreeNode = ({ name, children, level = 0 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const isFolder = children && typeof children === 'object';
@@ -31,9 +18,14 @@ const TreeNode = ({ name, children, level = 0 }) => {
   );
 };
 
-const FileExplorer = ({ files = [], folders = [], onFileClick }) => (
+const FileExplorer = ({ files = [], folders = [], onFileClick, activeSection, setActiveSection }) => (
   <div className="file-explorer">
-    <h3 className="explorer-title">Explorer</h3>
+    <div className = "nav-content">
+      <button className={`nav-tab${activeSection === 'code' ? ' active' : ''}`} onClick={() => setActiveSection('code')}>Code</button>
+      <button className={`nav-tab${activeSection === 'solutions' ? ' active' : ''}`} onClick={() => setActiveSection('solutions')}>Solutions</button>
+      <button className={`nav-tab${activeSection === 'submissions' ? ' active' : ''}`} onClick={() => setActiveSection('submissions')}>Submissions</button>
+    </div>
+    <h3 className="explorer-title">File Explorer</h3>
     <ul>
       {folders.map((folder) => (
         <li key={folder} className="folder">
@@ -43,7 +35,7 @@ const FileExplorer = ({ files = [], folders = [], onFileClick }) => (
       {files
         .filter(fileUrl => {
           const fileName = fileUrl.split('/').pop().split('?')[0];
-          return !fileName.toLowerCase().endsWith('dockerfile');
+          return !fileName.toLowerCase().endsWith('dockerfile') && !fileName.toLowerCase().endsWith('package.json');
         })
         .map((fileUrl) => {
           const fileName = fileUrl.split('/').pop().split('?')[0];

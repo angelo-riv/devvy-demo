@@ -7,7 +7,7 @@ const Navbar = () => {
   return (
     <div className={`navbar ${darkMode ? 'dark' : 'light'}`}>
       <div className="navbar-left">
-        <img src="/logo.jpg" alt="Logo" className="nav-logo" />
+        <img src="/newlogo2.png" alt="Logo" className="nav-logo" />
         <h1 className="nav-title">
             Devvy
         </h1>
