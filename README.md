@@ -11,20 +11,22 @@
 
 Devvy replaces algorithmic puzzle platforms with realistic project challenges. Students build full-stack solutions using the newest tech stacks, and recruiters assess candidates based on how they think — not just what they solve.
 
+View more here: https://www.canva.com/design/DAGrAHg3C8s/Tyx1jniDV9PjmBJaeBle-w/edit?utm_content=DAGrAHg3C8s&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
 ---
 
 ## Features
 
 -  Solve real-world tasks in full-stack environments
 -  Build public, peer-reviewed portfolios
--  Get challenges sourced from actual top rated GitHub repositories
+-  Get challenges sourced from actual top-rated GitHub repositories
 -  Project Repository problems built with multiple AI models & Human Validation 
--  Recruiter dashboard (planned): view candidate submissions & feedback
+-  Recruiter dashboard (planned): View candidate submissions & feedback
 
 ---
 
 ##  Architecture
-Architecture:
+**Architecture:**
 
 [ Filtered GitHub Scraper ] ➡️ [ OpenAI Problem Repository Generation ] ➡️ [ Supabase DB ] ➡️ 
 
