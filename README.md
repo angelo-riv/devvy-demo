@@ -3,13 +3,15 @@
 
 # 💻 Devvy
 
-> A project-based tech challenge platform for real-world engineering prep.
+> LeetCode but REAL project-based questions
 
 ---
 
 ##  Overview
 
-Devvy replaces algorithmic puzzle platforms with realistic project challenges. Students build full-stack solutions, and recruiters assess candidates based on how they think — not just what they solve.
+Devvy replaces algorithmic puzzle platforms with realistic project challenges. Students build full-stack solutions using the newest tech stacks, and recruiters assess candidates based on how they think — not just what they solve.
+
+View more here: https://www.canva.com/design/DAGrAHg3C8s/Tyx1jniDV9PjmBJaeBle-w/edit?utm_content=DAGrAHg3C8s&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 
 ---
 
@@ -17,20 +19,20 @@ Devvy replaces algorithmic puzzle platforms with realistic project challenges. S
 
 -  Solve real-world tasks in full-stack environments
 -  Build public, peer-reviewed portfolios
--  Get challenges sourced from actual GitHub repositories
--  AI-generated prompts based on real project code
--  Recruiter dashboard (planned): view candidate submissions & feedback
+-  Get challenges sourced from actual top-rated GitHub repositories
+-  Project Repository problems built with multiple AI models & Human Validation 
+-  Recruiter dashboard (planned): View candidate submissions & feedback
 
 ---
 
 ##  Architecture
-Architecture:
+**Architecture:**
 
-[ GitHub Scraper ] ➡️ [ AI Prompt Generator (ChatGPT/Gemini) ] ➡️ [ Devvy Challenge Builder ]  
-⬇️  
-[ Supabase DB ]  
-⬇️  
-[ FastAPI Backend ] ⬅️➡️ [ React Frontend (Axios) ]
+[ Filtered GitHub Scraper ] ➡️ [ OpenAI Problem Repository Generation ] ➡️ [ Supabase DB ] ➡️ 
+
+[ Gemini Problem Components Creation ] ➡️ [ Human Validation ] ➡️ [ Supabase Storage ] ➡️
+
+[ Python Backend (FastAPI) ] ➡️ [ Docker Container ] ⬅️➡️ [ React Frontend (Axios) ]
 
 
 | Component                | Description                                |
@@ -51,13 +53,6 @@ Architecture:
 |---------------|---------------|----------------|----------------------|
 | React         | FastAPI       | OpenAI + Gemini| Supabase + PostgreSQL|
 | Axios         | Docker        |                | Firebase (testing)   |
+|               | Python        |                |                      |
 
----
-
-## Setup Instructions
-
-1. **Clone the repo**
-   ```bash
-   git clone https://github.com/your-repo/devvy.git
-   cd devvy
 
