@@ -19,7 +19,7 @@ const CodeEditor = () => {
   
   useEffect(() => {
   async function fetchExplorer() {
-    const res = await fetch(`http://127.0.0.1:8000/problem-code/${root_folder}`, {
+    const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/problem-code/${root_folder}`, {
       method: 'POST'
     });
     const data = await res.json();  
@@ -33,7 +33,7 @@ const CodeEditor = () => {
       const text = await response.text();
       fileContents[fileName] = text;
     }
-
+    
     setFilesContent(fileContents);
 
     // Optionally set the first file as the current file
@@ -41,6 +41,7 @@ const CodeEditor = () => {
       setCurrentFile("README.md");
     }
   }
+  console.log("BASE_URL:", process.env.REACT_APP_API_BASE_URL);
 
   fetchExplorer();
 }, []);
@@ -86,7 +87,7 @@ const CodeEditor = () => {
   useEffect(() => {
     const getProblemData = async () => {
       try{
-        const response = await axios.post(`http://127.0.0.1:8000/getProblemDescription/${question_id}`);
+        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/getProblemDescription/${question_id}`);
         console.log(response.data);
         setProblemData(response.data);
       } catch(error){
@@ -126,7 +127,7 @@ const handleSubmit = async () => {
   for (let pair of formData.entries()) {
   console.log("hhhh",pair[0]+ ':', pair[1]);
 }
-  const res = await fetch("http://127.0.0.1:8000/submit", {
+  const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/submit`, {
     method: "POST",
     body: formData,
   });
