@@ -24,18 +24,24 @@ Devvy replaces algorithmic puzzle platforms with realistic project challenges. S
 ---
 
 ##  Architecture
-[ GitHub Scraper ] → [ AI Prompt Generator (ChatGPT/Gemini) ] → [ Devvy Challenge Builder ]
-↓
-[ Supabase DB ]
-↓
-[ FastAPI Backend ] ←→ [ React Frontend (Axios) ]
+Architecture:
+
+[ GitHub Scraper ] ➡️ [ AI Prompt Generator (ChatGPT/Gemini) ] ➡️ [ Devvy Challenge Builder ]  
+⬇️  
+[ Supabase DB ]  
+⬇️  
+[ FastAPI Backend ] ⬅️➡️ [ React Frontend (Axios) ]
 
 
-- GitHub scraping for real-world codebases
-- AI prompt generation to create coding challenges from parsed files
-- Supabase/PostgreSQL for storing users, challenges, and submissions
-- FastAPI backend serves all challenge and user data
-- React frontend fetches data via Axios & renders filters, portfolios, and problem views
+| Component                | Description                                |
+|--------------------------|--------------------------------------------|
+| GitHub Scraper           | GitHub scraping for real-world codebases   |
+| AI Prompt Generator      | Creates coding challenges from parsed files|
+| Devvy Challenge Builder  | Builds the coding challenge                  |
+| Supabase DB              | Stores users, challenges, and submissions   |
+| FastAPI Backend          | Serves challenge and user data               |
+| React Frontend (Axios)   | Fetches data and renders filters, portfolios, and problem views |
+
 
 ---
 
