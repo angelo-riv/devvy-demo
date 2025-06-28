@@ -242,6 +242,9 @@ const highlightBacktickWords = (text, className = "code-highlight") => {
                         <button className={`editor-tab ${activeTab === 'result' ? 'lactive' : ''}`} onClick={() => setActiveTab('result')}>
                           Test Result
                         </button>
+                        <button className={`editor-tab ${activeTab === 'result' ? 'lactive' : ''}`} onClick={() => setCurrentFile('test.js')}>
+                          View Test Cases
+                        </button>
                       </div>
 
                       <div className="test-content">
