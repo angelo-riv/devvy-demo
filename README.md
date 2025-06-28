@@ -27,8 +27,10 @@ Devvy replaces algorithmic puzzle platforms with realistic project challenges. S
 Architecture:
 
 [ Filtered GitHub Scraper ] ➡️ [ OpenAI Problem Repository Generation ] ➡️ [ Supabase DB ] ➡️ 
-[ Gemini Problem Components Creation ] ➡️ [ Human Validation ] ➡️ [ Supabase Storage ] ➡️ [ Python Backend (FastAPI) ] ➡️
-[ Docker Container ] ⬅️➡️ [ React Frontend (Axios) ]
+
+[ Gemini Problem Components Creation ] ➡️ [ Human Validation ] ➡️ [ Supabase Storage ] ➡️
+
+[ Python Backend (FastAPI) ] ➡️ [ Docker Container ] ⬅️➡️ [ React Frontend (Axios) ]
 
 
 | Component                | Description                                |
