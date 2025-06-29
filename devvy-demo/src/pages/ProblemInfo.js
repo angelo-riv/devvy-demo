@@ -24,7 +24,6 @@ const CodeEditor = () => {
     });
     const data = await res.json();  
     setExplorerData(data);
-    console.log("data:",data)
     // Fetch and populate all file contents immediately
     const fileContents = {};
     for (const fileUrl of data.files) {
@@ -41,7 +40,6 @@ const CodeEditor = () => {
       setCurrentFile("README.md");
     }
   }
-  console.log("BASE_URL:", process.env.REACT_APP_API_BASE_URL);
 
   fetchExplorer();
 }, []);
@@ -88,7 +86,6 @@ const CodeEditor = () => {
     const getProblemData = async () => {
       try{
         const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/getProblemDescription/${question_id}`);
-        console.log(response.data);
         setProblemData(response.data);
       } catch(error){
         console.error("Error fetching problem data:", error);
@@ -97,7 +94,6 @@ const CodeEditor = () => {
     getProblemData();
   }, [question_id]);
 
-  console.log('explorerData:', explorerData);
 
 //Test
 const username = "testUser";
@@ -115,8 +111,6 @@ const handleSubmit = async () => {
   const zipBlob = await zip.generateAsync({ type: "blob" });
   // Prepare form data for the backend
   const formData = new FormData();
-  console.log("question_id raw:", question_id, typeof question_id);
-  console.log("question_id parsed:", parseInt(question_id, 10), typeof parseInt(question_id, 10));
   formData.append("code", new File([zipBlob], "code.zip")); // name matches FastAPI's `code: UploadFile`
   formData.append("username", username);
   formData.append("question_id", parseInt(question_id, 10));
@@ -124,9 +118,6 @@ const handleSubmit = async () => {
   // Send to backend
   try{
 
-  for (let pair of formData.entries()) {
-  console.log("hhhh",pair[0]+ ':', pair[1]);
-}
   const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/submit`, {
     method: "POST",
     body: formData,
@@ -135,9 +126,7 @@ const handleSubmit = async () => {
 
 
   const result = await res.json();
-    console.log("result:",result);
     setResult(result);
-    console.log(result.hasError)
     setActiveTab("result")
     } catch (error) {
       console.error("Submission Error")
