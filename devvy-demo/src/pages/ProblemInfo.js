@@ -16,28 +16,38 @@ const CodeEditor = () => {
   const question_id = 51; 
   const root_folder = question_id;
   const [currentFile, setCurrentFile] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   
   useEffect(() => {
   async function fetchExplorer() {
-    const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/problem-code/${root_folder}`, {
-      method: 'POST'
-    });
-    const data = await res.json();  
-    setExplorerData(data);
-    // Fetch and populate all file contents immediately
-    const fileContents = {};
-    for (const fileUrl of data.files) {
-      const fileName = fileUrl.split('/').pop().split('?')[0];
-      const response = await fetch(fileUrl);
-      const text = await response.text();
-      fileContents[fileName] = text;
-    }
-    
-    setFilesContent(fileContents);
+    setIsLoading(true); 
+    try {
+      const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/problem-code/${root_folder}`, {
+        method: 'POST'
+      });
+      const data = await res.json();
+      setExplorerData(data);
 
-    // Optionally set the first file as the current file
-    if (data.files.length > 0) {
-      setCurrentFile("README.md");
+    
+      const fileContents = {};
+      for (const fileUrl of data.files) {
+        const fileName = fileUrl.split('/').pop().split('?')[0];
+        const response = await fetch(fileUrl);
+        const text = await response.text();
+        fileContents[fileName] = text;
+      }
+
+      setFilesContent(fileContents);
+
+      if (data.files.length > 0) {
+        setCurrentFile("README.md");
+      }
+    } catch (error) {
+      console.error("Error fetching explorer data:", error);
+    } finally {
+      setIsLoading(false); 
     }
   }
 
@@ -84,11 +94,14 @@ const CodeEditor = () => {
 
   useEffect(() => {
     const getProblemData = async () => {
+      setIsLoading(true);
       try{
         const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/getProblemDescription/${question_id}`);
         setProblemData(response.data);
       } catch(error){
         console.error("Error fetching problem data:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
     getProblemData();
@@ -99,6 +112,7 @@ const CodeEditor = () => {
 const username = "testUser";
 
 const handleSubmit = async () => {
+  setIsSubmitting(true);
   const zip = new JSZip();
 
 
@@ -130,7 +144,9 @@ const handleSubmit = async () => {
     setActiveTab("result")
     } catch (error) {
       console.error("Submission Error")
-    }
+    }finally {
+    setIsSubmitting(false); 
+  }
   };
 
 const highlightBacktickWords = (text, className = "code-highlight") => {
@@ -160,6 +176,20 @@ const highlightBacktickWords = (text, className = "code-highlight") => {
 };
 
   return (
+    <>
+    {isLoading && (
+  <div className="loading-overlay">
+    <div className="loading-spinner"></div>
+    <p>Loading problem and files...</p>
+  </div>
+)}
+
+{isSubmitting && (
+  <div className="loading-overlay">
+    <div className="loading-spinner"></div>
+    <p>Submitting your code...</p>
+  </div>
+)}
   <div className="probleminfo-page">
 
     <div className="probleminfo-body" style={{ display: 'flex'}}>
@@ -203,12 +233,6 @@ const highlightBacktickWords = (text, className = "code-highlight") => {
                             className="language-selector"
                           >
                             <option value="javascript">JavaScript</option>
-                            <option value="typescript">TypeScript</option>
-                            <option value="python">Python</option>
-                            <option value="java">Java</option>
-                            <option value="cpp">C++</option>
-                            <option value="go">Go</option>
-                            <option value="rust">Rust</option>
                           </select>
                         </div>
                         <div className = "file-title">
@@ -288,6 +312,7 @@ const highlightBacktickWords = (text, className = "code-highlight") => {
       </div>
     </div>
     </div>
+    </>
   );
 };
 
